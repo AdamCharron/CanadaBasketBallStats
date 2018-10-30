@@ -1,0 +1,58 @@
+gui
+- colours.py			Contain list of all colours available in tkinter
+- csv_parser.py			Should be obselete...
+- minute_heatmap_gui.py		Main file for visualizing heatmaps based on user inputted stats and teams
+- simple_grid.py		Helper file to actually visualize the heatmaps
+
+heatmap
+- minute_heatmap.py		Main file for creating heatmaps. Outputs to CSVs and pickles based on user inputted stats and teams
+- minute_heatmap_backup.py	Should be obselete... backup when big changes were being made to minute_heatmap
+- stat_type_lookups.py		Sort of a header file for minute_heatmap, containing a lot of variable definitions
+
+enrich
+- convert_country_names.py	Contains conversion dicts from 3-letter country abbreviations to full names (cause of data inconsistencies)
+- enrich_CSVs.py		Main file for enriching CSVs. Should be run right after parsing. 
+- parse_to_yaml.py		Contains the load and dump files to read-to-dict and store-to-pickle (respectively) pickle files 
+
+data
+- [stats]_heatmap.csv		Heatmap CSVs outputted from (2) for summed values in each minute slot across all games
+- [stats]_avg_heatmap.csv	Heatmap CSVs outputted from (2) for average values in each minute slot per game
+- [stats]_heatmap.pickle	Heatmap pickles outputted from (2) for summed values in each minute slot across all games
+- [stats]_avg_heatmap.pickle	Heatmap pickles outputted from (2) for average values in each minute slot per game
+- PlayByPlay.csv		Initial play by play data from the hackathon
+- PlayByPlay.csv		Initial play by play data from the hackathon in pickled form for easier reading
+- PlayByPlay_enriched.csv	Enriched play by play data. Contains columns for what players are on the court at all times, and when they got on
+- GameIDs.csv			Initial game ID data from the hackathon
+- GameIDs.pickle		Initial game ID data from the hackathon in pickled form for easier reading
+- BoxscoreStats.csv		Initial boxscore data from the hackathon
+- BoxscoreStats.pickle		Initial boxscore data from the hackathon in pickled form for easier reading
+
+
+
+
+==============================================================================================
+==============================================================================================
+
+General Process Overview:
+
+My part does three things:
+1) Enrich data - enrich PlayByPlay data by adding to each timestamp: the players on the court and the time they got on the court
+- Start with PlayByPlay.csv and GameIDs.csv
+- run get_time_logs() function in convert_country_names.py (just the if __name__=='__main__' block at the bottom)
+	=> yields PlayByPlay_enriched.csv
+
+2) Create stat heatmaps - create CSV and pickle heatmaps for any of the stats available in the if __name__=='__main__' block
+- run the if __name__=='__main__' block
+	=> need to provide a list of teams to check these stats on (recommended to select all by providing None, [], or "" as fcn argument to main_heatmap(teams) function call.). For specific teams, create a list of their 3-letter code strings (can be seen in convert_country_names.py)
+	=> the main_heatmap(teams) function will remove old stat files, create the CSVs, and dump the results to pickles
+
+3) Visualize the heatmaps
+- minute_heatmap_gui() if __name__=='__main__' block
+	=> select a list of teams to visualize (same as in (2) - empty list is all teams)
+	=> select the stat to be run (just uncomment from the ones available). This only handles one at a time, but can deal with multiple by repeatedly calling the function
+	=> run launch_gui(stat, teams) to run through everything and visualize it
+	=> will dump if there are stats or teams missing from the pickle files (if in (2) you only ran on some teams, or files got corrupt/deleted)
+
+
+So really it just consists of creating a wrapper for the if __name__=='__main__' block of (3) above, and running (1) and (2) on all teams right after scraping or anything that would change data
+Would be nice to be able to select teams and stats via a drop down menu or something?

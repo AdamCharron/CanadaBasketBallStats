@@ -1,0 +1,17 @@
+Adam
+- one player toggles between teams on substitution
+- adding row to heatmap for actual entire teams (not just individuals)
+  - and/or both
+- script cleanup for enrich
+  - enable script to run from any directory
+
+Rossdan
+- documentation for all code
+- which version of all dependencies for others to download
+- cmd line interface (precursor to GUI)
+  - look into SQL for sorting and filtering data
+- tkinter
+
+
+
+

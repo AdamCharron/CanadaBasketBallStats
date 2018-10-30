@@ -1,0 +1,25 @@
+Fill in Blanks with FT/fouls/substitutions:
+
+Substitution Out
+Substitution In
+
+Personal Foul
+1st of 1 free throw made
+1st of 1 free throw missed
+
+1st of 2 free throws made
+1st of 2 free throws missed
+
+2nd of 2 free throws made
+2nd of 2 free throws missed
+
+1st of 3 free throws made
+1st of 3 free throws missed
+
+2nd of 3 free throws made
+2nd of 3 free throws missed
+
+3rd of 3 free throws made
+3rd of 3 free throws missed
+
+
